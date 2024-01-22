@@ -1,0 +1,25 @@
+import requests
+import os
+
+def download_arquivo(url, destino):
+    try:
+        resposta = requests.get(url)
+        resposta.raise_for_status()
+
+        with open(destino, 'wb') as arquivo:
+            arquivo.write(resposta.content)
+
+        print(f"Download concluído: {url}")
+    except requests.exceptions.RequestException as e:
+        print(f"Erro durante o download: {e}")
+
+if __name__ == "__main__":
+    # Substitua as variáveis abaixo com os valores específicos do seu caso
+    url_alvo = 'https://exemplo.com/arquivo.zip'
+    caminho_destino = 'caminho/local/arquivo.zip'
+
+    # Certifique-se de que o diretório de destino exista
+    os.makedirs(os.path.dirname(caminho_destino), exist_ok=True)
+
+    # Chama a função de download
+    download_arquivo(url_alvo, caminho_destino)
